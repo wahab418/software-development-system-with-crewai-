@@ -1,42 +1,47 @@
 from crewai import Crew
 from crewai.llm import LLM
 
-# planner imports
-from agents.planner_agent.planner_agent import planner_agent
-from tasks.planning_task.planning_task import planning_task
+# ---------------- Planner Agent ----------------
+# from agents.planner_agent.planner_agent import planner_agent
+# from tasks.planning_task.planning_task import planning_task
 
-# frontend imports
-from agents.frontend_agent.frontend_agent import frontend_agent
-from tasks.frontend_task.frontend_task import frontend_task
+# ---------------- Frontend Agent ----------------
+# from agents.frontend_agent.frontend_agent import frontend_agent
+# from tasks.frontend_task.frontend_task import frontend_task
 
+# ---------------- Backend Agent ----------------
+from agents.backend_agent.backend_agent import backend_agent
+from tasks.backend_task.backend_task import backend_task
 
+# ---------------- Code Enhancer Agent ----------------
+# from agents.code_enhancer_agent.code_enhancer_agent import code_enhancer_agent
+# from tasks.code_enhancer_task.code_enhancer_task import code_enhancer_task
+
+# ---------------- LLM Setup ----------------
 llm = LLM(
-    model="ollama/gpt-oss:120b-cloud",
+    model="ollama/qwen3-coder:480b-cloud",
     temperature=0.3,
-    base_url="http://localhost:11434" ,
-
+    base_url="http://localhost:11434",
 )
 
-# Crew definition (merged safely)
+# ---------------- Crew Setup ----------------
 crew = Crew(
     agents=[
-        planner_agent,
-        frontend_agent  
+        backend_agent
     ],
     tasks=[
-        planning_task,
-        frontend_task   
+        backend_task
     ],
     planning=True,
     planning_llm=llm,
     verbose=True
 )
 
-# Kickoff
+# ---------------- Kickoff ----------------
 crew.kickoff(
     inputs={
-        "project_description": "Create a simple weather app using HTML, CSS, and JavaScript",
-        "base_path": "E:\frontend-output"   
+        "project_description": "weather app",
+        "base_path": "E:/autonomous_software_dev_crewai/output",
+        "folder_path": "E:/autonomous_software_dev_crewai/output"  # for code enhancer
     }
 )
-

@@ -1,1 +1,0 @@
-document.addEventListener('DOMContentLoaded', () => { console.log('Welcome to the Autonomous Dev Frontend project!'); document.querySelector('main').innerHTML = '<p>Hello, World!</p>'; });
