@@ -1,8 +1,10 @@
 from crewai import Task
 from agents.frontend_agent.frontend_agent import frontend_agent
+from tasks.planning_task.planning_task import planning_task
+
 
 frontend_task = Task(
-    description=(
+    description=(               
         "Project Description:\n{project_description}\n\n"
         "Base Path (existing folder):\n{base_path}\n\n"
         "MANDATORY STEPS:\n"
@@ -28,6 +30,7 @@ frontend_task = Task(
         "Frontend files created on disk using FileWriterTool."
     ),
     agent=frontend_agent,
+    context=[planning_task],  # Added - receives planner's output
 )
 
 print("frontend task initialized successfully")

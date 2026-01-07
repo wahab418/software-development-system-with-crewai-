@@ -1,5 +1,5 @@
-from agents.planner_agent.planner_agent import planner_agent
 from crewai import Task
+from agents.planner_agent.planner_agent import planner_agent
 # Planner Task
 
 planning_task = Task(
